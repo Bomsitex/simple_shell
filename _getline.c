@@ -43,7 +43,7 @@ ssize_t _getline(char **lineptr, size_t *n, int fd)
 		{
 			if (cumread == 0)
 			{
-				*lineptr = '\0';
+				**lineptr = '\0';
 				cumread = -1;
 			}
 			else
