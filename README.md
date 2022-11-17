@@ -1,7 +1,12 @@
-Simple Shell
+ALX Simple Shell PROJECT - COHORT 9 - NOV 2022
+Authors:
+Elias Igwegbu and Boma Epele
+
 In this project we'll create a simple UNIX command interpreter in C programming language.
 
-The simple shell project to  underestand and create a functional basic shell program
+The purpose of this simple shell project is to  underestand and create a functional basic shell program
+
+This shell is modelled after the Bourne Shell (sh). However basic tests were carried out using the Dash shell as installed in Ubuntu since sh maps to Dash in Ubuntu.
 
 LEARNING OBJECTIVES
 How a shell works
