@@ -42,7 +42,8 @@ int execCmd(char **args, char *shell)
 
 				for (i = 0; i < _strlen(shell); i++)
 					write(STDOUT_FILENO, &shell[i], 1);
-				write(STDOUT_FILENO, ": not found", 11);
+				write(STDOUT_FILENO, ": command not found", 19);
+				printf(": not found");
 				write(STDOUT_FILENO, "\n", 1);
 			}
 		}
