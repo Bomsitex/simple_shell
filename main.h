@@ -13,6 +13,8 @@
 #include <string.h>
 #include <sys/wait.h>
 
+typedef struct stat stat_t;
+
 extern char **environ;
 
 /* team library functions */

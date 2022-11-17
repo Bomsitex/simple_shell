@@ -11,7 +11,7 @@
 int getCmdPath(char **args, char *pathname)  /* do not call if args == NULL */
 {
 	char ch, *path, **pathVector;
-	struct stat fileStat; /* will hold the file stat */
+	stat_t fileStat; /* will hold the file stat */
 	int i = 0;
 
 	path = _strdup(_getenv("PATH"));  /* must free path later */
