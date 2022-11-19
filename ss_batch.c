@@ -17,8 +17,14 @@ int ssBatch(int argc  __attribute__((unused)), char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
-		perror(argv[0]);
-		exit(EXIT_FAILURE);
+		/*write(STDOUT_FILENO, environ[i], len);*/
+		write(STDERR_FILENO, argv[0], _strlen(argv[0]));
+		write(STDERR_FILENO, ": ", 2);
+		write(STDERR_FILENO, "0: ", 3);
+		write(STDERR_FILENO, "Can\'t open ", 11);
+		write(STDERR_FILENO, argv[1], _strlen(argv[1]));
+		write(STDERR_FILENO, "\n", 1);
+		exit(127);
 	}
 
 	/* read and process each line until EOF */
