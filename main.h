@@ -59,7 +59,7 @@ int varHandler(char **args, char *cmdLine, char **cmdsVector,
 /* printf specific functions */
 int _printf(const char *format, ...);
 const char *processPercent(const char *format,
-        int *fpos, va_list ap, int *printCount, char *buff);
+int *fpos, va_list ap, int *printCount, char *buff);
 int printArg(va_list ap, char cspec, int *printCount, char *buff);
 void printInt(int n, int *printCount, char *buff);
 void printChar(char ch, int *printCount, char *buff);
