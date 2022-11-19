@@ -4,10 +4,10 @@
  * execCmd - execute the command
  * @args: array of pointers to the args (vector) for the command
  * @shell: the shell program name
+ * @jobNr: the sequence number of the current commands job
  * Return: 0 if all ok, else -1
  */
-
-int execCmd(char **args, char *shell)
+int execCmd(char **args, char *shell, int *jobNr)
 /*int execCmd(char **cmdLine, char *shell) */
 {
 	int wstatus, a;
@@ -15,9 +15,10 @@ int execCmd(char **args, char *shell)
 	char pathname[PATH_MAX] = "\0";
 	pid_t cpid;
 
+		/*args = parseLine(*cmdLine, " \n"); */
 		if (args[0])
 		{
-			a = getCmdPath(args, pathname);
+			a = getCmdPath(args, pathname, jobNr);
 			if (!a)
 			{
 				cpid = fork();
@@ -32,22 +33,17 @@ int execCmd(char **args, char *shell)
 				{
 					do {
 					waitpid(cpid, &wstatus, WUNTRACED);
-					} while (!WIFEXITED(wstatus) && !WIFSIGNALED(wstatus));
+					} while (!WIFEXITED(wstatus) &&
+						!WIFSIGNALED(wstatus));
 				}
 			}
 		else
 			{
-				size_t i;
-
-				for (i = 0; i < _strlen(shell); i++)
-					write(STDOUT_FILENO, &shell[i], 1);
-				write(STDOUT_FILENO, ": ", 2);
-				for (i = 0; i < _strlen(args[0]); i++)
-					write(STDOUT_FILENO, &args[0][i], 1);
-				write(STDOUT_FILENO, ": not found", 11);
-				write(STDOUT_FILENO, "\n", 1);
+				_printf("%s: %d: %s: not found\n", shell,
+					*jobNr, args[0]);
 			}
 		}
+
 		return (0);
 }
 

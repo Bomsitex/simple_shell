@@ -1,6 +1,4 @@
 #include "main.h"
-#define BUFFSIZE 1025
-#define BUFFLEN (BUFFSIZE - 1)
 
 /**
  * buffchar -  write character to buffer

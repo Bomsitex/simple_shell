@@ -7,11 +7,11 @@
  * @cmdsVector: the commands vector for this job
  * @cmd: the iterator vector for this command
  * @shell: the simple shell program name (from main arg[0]
- *
+ * @jobNr: the sequence number of the current commands job
  * Return: 0 if ok, -1 on error
  */
 int execBuiltin(char **args, char *cmdLine, char **cmdsVector,
-	char *cmd, char *shell)
+	char *cmd, char *shell, int *jobNr)
 {
 	(void) shell;
 	(void) args;
@@ -22,14 +22,14 @@ int execBuiltin(char **args, char *cmdLine, char **cmdsVector,
 	if (!_strcmp(args[0], "env"))  /* arg matches this function */
 	{
 		envHandler(args, cmdLine, cmdsVector,
-		cmd, shell);
+		cmd, shell, jobNr);
 		/*printf("envHandler\n");*/
 		return (0);
 	}
 	else if (!_strcmp(args[0], "cd"))  /* arg matches this function */
 	{
 		cdHandler(args, cmdLine, cmdsVector,
-		cmd, shell);
+		cmd, shell, jobNr);
 		/*printf("cdHandler\n");*/
 		return (0);
 	}
@@ -38,7 +38,7 @@ int execBuiltin(char **args, char *cmdLine, char **cmdsVector,
 		&& (args[1][0] == '$'))	/* arg matches this function */
 	{
 		varHandler(args, cmdLine, cmdsVector,
-		cmd, shell);
+		cmd, shell, jobNr);
 		/*printf("$ var replacement Handler\n"); */
 		return (0);
 	}
