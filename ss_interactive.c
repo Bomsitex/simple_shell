@@ -17,7 +17,8 @@ int ssInteractive(int argc __attribute__((unused)), char **argv)
 	while (1)
 	{
 		/* display prompt */
-		write(STDOUT_FILENO, "$ ", 2);
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "$ ", 2);
 
 		/* get the command line */
 		cmdLine = NULL; /*debug; reqd for cycling after cmd process?*/
