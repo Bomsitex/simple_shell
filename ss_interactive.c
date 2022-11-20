@@ -27,6 +27,7 @@ int ssInteractive(int argc __attribute__((unused)), char **argv)
 		{
 			break;
 		}
+		remCmnt(cmdLine); /* remove comment, if any -- debug */
 		/* fflush(STDIN_FILENO);  debug ? */
 		execJob(cmdLine, argv, &jobNr);
 		/* free(cmdLine);   debug */

@@ -12,7 +12,7 @@ char *remCmnt(char *cmdLine)
 	char *ptr = cmdLine;
 	int sQuoteOpen = 0, dQuoteOpen = 0, cmntFound = 0;
 
-	while (*++ptr)
+	while (*ptr)
 	{
 		if (_strchr("\'\"#", *ptr))
 		{
@@ -42,7 +42,8 @@ char *remCmnt(char *cmdLine)
 			if (cmntFound)
 				break;
 		}
-	}
+		ptr++;   /* debug */
 
+	}
 	return (cmdLine);
 }
