@@ -12,6 +12,7 @@ int ssInteractive(int argc __attribute__((unused)), char **argv)
 	size_t buffsz = 0; /* the cmdLine buffer size */
 	ssize_t userInput = -1;  /* num of chars; -1 is error or EOF (CTRL+D)*/
 	int jobNr = 0;
+	int lastError = 0; /* error tracking */
 
 	/* initiate loop */
 	while (1)
@@ -23,6 +24,7 @@ int ssInteractive(int argc __attribute__((unused)), char **argv)
 		/* get the command line */
 		cmdLine = NULL; /*debug; reqd for cycling after cmd process?*/
 		jobNr++;
+
 		userInput = _getline(&cmdLine, &buffsz, STDIN_FILENO);
 		if (userInput == -1)  /* error or EOF (CTRL+D) */
 		{
@@ -30,7 +32,7 @@ int ssInteractive(int argc __attribute__((unused)), char **argv)
 		}
 		remCmnt(cmdLine); /* remove comment, if any -- debug */
 		/* fflush(STDIN_FILENO);  debug ? */
-		execJob(cmdLine, argv, &jobNr);
+		lastError = execJob(cmdLine, argv, &jobNr, &lastError);
 		/* free(cmdLine);   debug */
 		buffsz = 0;
 	}  /* end shell loop */
@@ -39,6 +41,6 @@ int ssInteractive(int argc __attribute__((unused)), char **argv)
 	free(cmdLine);
 
 	/*write(STDOUT_FILENO, "\n", 1);*/
-	return (0);
+	return (lastError);
 }
 

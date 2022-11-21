@@ -8,11 +8,12 @@
  */
 int main(int argc, char *argv[])
 {
+	int lastError = 0;
 
 	if (argc == 1)
-		ssInteractive(argc, argv);
+		lastError = ssInteractive(argc, argv);
 	else
-		ssBatch(argc, argv);
+		lastError = ssBatch(argc, argv);
 
-	return (0);
+	return (lastError);
 }

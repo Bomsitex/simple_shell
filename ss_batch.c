@@ -13,6 +13,7 @@ int ssBatch(int argc  __attribute__((unused)), char **argv)
 	size_t buffsz = 0; /* the cmdLine buffer size */
 	ssize_t userInput = -1;  /* num of chars; -1 is error or EOF (CTRL+D)*/
 	int fd, jobNr = 0;
+	int lastError = 0; /* last major error encountered */
 
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
@@ -26,7 +27,6 @@ int ssBatch(int argc  __attribute__((unused)), char **argv)
 		write(STDERR_FILENO, "\n", 1);
 		exit(127);
 	}
-
 	/* read and process each line until EOF */
 	while (1)
 	{
@@ -34,12 +34,9 @@ int ssBatch(int argc  __attribute__((unused)), char **argv)
 		userInput = _getline(&cmdLine, &buffsz, fd);
 		if (userInput == -1)  /* error or EOF (CTRL+D) */
 			break;
-
-		/* fflush(STDIN_FILENO); debug ? */
 		remCmnt(cmdLine);  /* test */
 		args = parseLine(cmdLine, " \n", &jobNr);  /*debug */
-		execCmd(args, argv[0], &jobNr);
-		/*execCmd(&cmdLine, argv[0]);*/
+		execCmd(args, argv[0], &jobNr, &lastError);
 		free(cmdLine);/*  debug */
 		free(args);  /*debug */
 		cmdLine = NULL; /*debug */
@@ -47,5 +44,5 @@ int ssBatch(int argc  __attribute__((unused)), char **argv)
 	}
 	free(cmdLine);
 
-	return (0);
+	return (lastError);
 }

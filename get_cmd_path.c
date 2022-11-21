@@ -41,12 +41,16 @@ int getCmdPath(char **args, char *pathname, int *jobNr)
 			_strcat(pathname, "/");
 			_strcat(pathname, args[0]);
 			if (!stat(pathname, &fileStat))
+			{
+				errno = 0;
 				break;
+			}
 			i++;
 		}
 	}
 	free(path);
 	free(pathVector);
+
 	return (stat(pathname, &fileStat));
 }
 

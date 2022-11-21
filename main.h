@@ -32,27 +32,28 @@ int _strncmp(const char *s1, const char *s2, int n);
 int _strcmp(const char *s1, const char *s2);
 char *_strdup(const char *str);
 int _strtoi(const char *str, int *error);
+char *_itostr(int n);
 char **splitLine(char **cmdLine, char ***args);
 ssize_t _getline(char **lineptr, size_t *n, int fd);
 char **parseLine(char *str, char *delim, int *jobNr);
 int getCmdPath(char **args, char *pathnamei, int *jobNr);
 char *_getenv(const char *name);
-int execCmd(char **args, char *shell, int *jobNr);
+int execCmd(char **args, char *shell, int *jobNr, int *lastError);
 char *remCmnt(char *cmdLine);
 void shellErr(int code);
 int ssInteractive(int ac, char **av);
 int ssBatch(int ac, char **av);
-int execJob(char *cmdLine, char **argv, int *jobNr);
+int execJob(char *cmdLine, char **argv, int *jobNr, int *lastError);
 int execBuiltin(char **args, char *cmdLine, char **cmdsVector,
-	char *cmd, char *shell, int *jobNr);
+	char *cmd, char *shell, int *jobNr, int *lastError);
 void ssExit(char **args, char *cmdLine, char **cmdsVector,
-	char *cmd, char *shell, int *jobNr);
+	char *cmd, char *shell, int *jobNr, int *lastError);
 int cdHandler(char **args, char *cmdLine, char **cmdsVector,
-	char *cmd, char *shell, int *jobNr);
+	char *cmd, char *shell, int *jobNr, int *lastError);
 int envHandler(char **args, char *cmdLine, char **cmdsVector,
-	char *cmd, char *shell, int *jobNr);
+	char *cmd, char *shell, int *jobNr, int *lastError);
 int varHandler(char **args, char *cmdLine, char **cmdsVector,
-	char *cmd, char *shell, int *jobNr);
+	char *cmd, char *shell, int *jobNr, int *lastError);
 
 
 /*printf stuff */

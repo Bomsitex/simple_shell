@@ -5,9 +5,10 @@
  * @cmdLine: the shell command line
  * @argv: argument vector for the shell command line
  * @jobNr: the sequence number of the current commands job
+ * @lastError: Last Error monitored
  * Return: 0 on sucess, -1 on error
  */
-int execJob(char *cmdLine, char **argv, int *jobNr)
+int execJob(char *cmdLine, char **argv, int *jobNr, int *lastError)
 {
 	char **cmdsVector = NULL; /* the shell cmds array (job): must free*/
 	char **args = NULL; /*vector of arguments in a cmd: must free */
@@ -15,10 +16,8 @@ int execJob(char *cmdLine, char **argv, int *jobNr)
 	int i = 0;
 
 	cmdsVector = parseLine(cmdLine, ";\n", jobNr);/*free cmdsVector later*/
-
-	/* exec the commands one at a time */
 	i = 0;
-	while (cmdsVector[i])
+	while (cmdsVector[i]) /* exec the commands one at a time */
 	{
 		cmd = _strdup(cmdsVector[i]);  /* must free cmd later */
 		remCmnt(cmd);
@@ -30,14 +29,14 @@ int execJob(char *cmdLine, char **argv, int *jobNr)
 			if (!_strcmp(args[0], "exit"))
 			{
 				ssExit(args, cmdLine, cmdsVector,
-					cmd, argv[0], jobNr);
+					cmd, argv[0], jobNr, lastError);
 			}
 			else
 			{
 			/* first try to exec builtin */
 			if (execBuiltin(args, cmdLine, cmdsVector,
-				cmd, argv[0], jobNr) != 0)
-				execCmd(args, argv[0], jobNr);
+				cmd, argv[0], jobNr, lastError) != 0)
+				execCmd(args, argv[0], jobNr, lastError);
 			}
 		}
 		free(cmd);
@@ -46,6 +45,6 @@ int execJob(char *cmdLine, char **argv, int *jobNr)
 	}
 	free(cmdLine); /* debug */
 	free(cmdsVector);
-	return (0);
+	return (*lastError);
 }
 
