@@ -23,8 +23,8 @@ int envHandler(char **args, char *cmdLine, char **cmdsVector,
 	(void) cmdsVector;
 	(void) cmd;
 	(void) jobNr;
-	(void) lastError;
 
+	*lastError = 0;
 	i = 0;
 	while (environ[i])
 	{

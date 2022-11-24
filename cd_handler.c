@@ -21,7 +21,8 @@ int cdHandler(char **args, char *cmdLine, char **cmdsVector,
 	(void) cmdsVector;
 	(void) cmd;
 	(void) jobNr;
-	(void) lastError;
+
+	*lastError = 0;
 
 
 	return (0);

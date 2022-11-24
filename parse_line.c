@@ -65,7 +65,6 @@ void parseMallocCheck(char **tokens, int *jobNr)
 	(void) jobNr;  /* debug */
 	if (!tokens)
 	{
-		/* _printf("%d: ", *jobNr);  debug */
 		perror("parseLine: Memory Allocation Failure");
 		exit(EXIT_FAILURE);
 	}
