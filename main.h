@@ -56,7 +56,7 @@ int setenvHandler(char **args, char *cmdLine, char **cmdsVector,
 	char *cmd, char *shell, int *jobNr, int *lastError);
 int _setenv(const char *name, const char *value, int overwrite);
 int unsetenvHandler(char **args, char *cmdLine, char **cmdsVector,
-	char *cmd, char *shell, int *jobNr, int *lastError);
+        char *cmd, char *shell, int *jobNr, int *lastError);
 int _unsetenv(const char *name);
 int printEnv(void);
 void freeEnv(char **environ);
