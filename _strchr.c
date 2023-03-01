@@ -2,8 +2,7 @@
 #include "main.h"
 
 /**
- * _strchr - returns a pointer to the first occurrence of the character c
- * in the string s
+ * _strchr - copy n chars to a buffer
  * @s: the dest buffer
  * @c: the character to search
  *
@@ -11,8 +10,6 @@
  */
 char *_strchr(char *s, char c)
 {
-	char *str = s;
-
 	int i = 0;
 
 	while (s[i] != c)
@@ -22,5 +19,5 @@ char *_strchr(char *s, char c)
 		i++;
 	}
 
-	return (str + i);
+	return (s + i);
 }

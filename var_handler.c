@@ -22,8 +22,7 @@ int varHandler(char **args, char *cmdLine, char **cmdsVector,
 	(void) cmdsVector;
 	(void) cmd;
 	(void) jobNr;
-
-	*lastError = 0;
+	(void) lastError;
 
 
 	return (0);

@@ -9,7 +9,7 @@
  *
  * Return: the length of the string
  */
-char *_strcat(char *dest, const char *src)
+char *_strcat(char *dest, char *src)
 {
 	int i, dest_sz, src_sz;
 
