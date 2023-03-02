@@ -21,10 +21,12 @@ extern char **environ;
 typedef struct stat stat_t;
 
 /* team library functions */
+void buffchar(int ch, char *buff);
+int _putchar(char c);
 size_t _strlen(const char *s);
-char *_strncat(char *dest, const char *src, int n);
-char *_strcat(char *dest, const char *src);
-char *_strcpy(char *dest, const char *src);
+char *_strncat(char *dest, char *src, int n);
+char *_strcat(char *dest, char *src);
+char *_strcpy(char *dest, char *src);
 char *_strchr(char *s, char c);
 int _strncmp(const char *s1, const char *s2, int n);
 int _strcmp(const char *s1, const char *s2);
@@ -52,14 +54,31 @@ int envHandler(char **args, char *cmdLine, char **cmdsVector,
 	char *cmd, char *shell, int *jobNr, int *lastError);
 int varHandler(char **args, char *cmdLine, char **cmdsVector,
 	char *cmd, char *shell, int *jobNr, int *lastError);
-int setenvHandler(char **args, char *cmdLine, char **cmdsVector,
-	char *cmd, char *shell, int *jobNr, int *lastError);
-int _setenv(const char *name, const char *value, int overwrite);
-int unsetenvHandler(char **args, char *cmdLine, char **cmdsVector,
-	char *cmd, char *shell, int *jobNr, int *lastError);
-int _unsetenv(const char *name);
-int printEnv(void);
-void freeEnv(char **environ);
+
+
+/*printf stuff */
+/* printf specific functions */
+int _printf(const char *format, ...);
+const char *processPercent(const char *format,
+int *fpos, va_list ap, int *printCount, char *buff);
+int printArg(va_list ap, char cspec, int *printCount, char *buff);
+void printInt(int n, int *printCount, char *buff);
+void printChar(char ch, int *printCount, char *buff);
+void printString(char *s, int *printCount, char *buff);
+void printStringReverse(char *s, int *printCount, char *buff);
+void printStringUpper(char *s, int *printCount, char *buff);
+void printUnsignedInt(unsigned int n, int *printCount, char *buff);
+void printUnsignedOctal(unsigned int n, int *printCount, char *buff);
+void printBinary(unsigned int n, int *printCount, char *buff);
+void printHexLower(unsigned int n, int *printCount, char *buff);
+void printHexUpper(unsigned int n, int *printCount, char *buff);
+void printHexLowerDigits(int n, int *printCount, char *buff);
+void printHexUpperDigits(int n, int *printCount, char *buff);
+void printPointer(unsigned long int n, int *printCount, char *buff);
+void printPointerDigits(int n, int *printCount, char *buff);
+void buffchar(int ch, char *buff);
+char *rot13(char *str);
+void printStringRot13(char *s, int *printCount, char *buff);
 
 #endif /* _SIMPLE_SHELL_BK_ */
 
