@@ -39,6 +39,7 @@ void ssExit(char **args, char *cmdLine,
 	free(args);
 	free(cmdLine); /* debug */
 	free(cmdsVector);
+	freeEnv(environ); /* debug */
 
 	exit(*lastError);
 }

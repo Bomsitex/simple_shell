@@ -17,6 +17,7 @@ int execCmd(char **args, char *shell, int *jobNr, int *lastError)
 	char pathname[PATH_MAX] = "\0";
 	pid_t cpid;
 
+	*lastError = 0;   /* debug; reset before execution */
 	if (args[0])
 	{
 		a = getCmdPath(args, pathname, jobNr);
@@ -24,7 +25,7 @@ int execCmd(char **args, char *shell, int *jobNr, int *lastError)
 		if (!a)
 		{
 			/* *lastError = 0;    reset before execution */
-			errno = 0;  /* debug */
+			/* errno = 0;   debug */
 			cpid = fork();
 			if (cpid == 0)
 			{
@@ -40,13 +41,15 @@ int execCmd(char **args, char *shell, int *jobNr, int *lastError)
 				} while (!WIFEXITED(wstatus) &&
 					!WIFSIGNALED(wstatus));
 				errno = WEXITSTATUS(wstatus);/* debug */
+				*lastError = errno; /* debug */
 			}
 		}
-	else
+		else
 		{
+			errno = 127; /* command not found */
+			*lastError = errno; /* debug */
 			printExecCmdError(shell, *jobNr, args[0]);
 		}
-		*lastError = errno; /* debug */
 	}
 	return (*lastError);
 }
@@ -77,4 +80,3 @@ void printExecCmdError(char *shell, int jobNr, char *arg)
 	/* write the error message */
 	write(STDERR_FILENO, ": not found\n", 12);
 }
-
