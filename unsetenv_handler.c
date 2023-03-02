@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * varHandler - handle variable substitution
+ * unsetenvHandler - handle setenv builtin command
  * @args: the arguments vector for the current command
  * @cmdLine: the command line for this job
  * @cmdsVector: the commands vector for this job
@@ -12,19 +12,34 @@
  *
  * Return: 0 if ok, -1 on error
  */
-int varHandler(char **args, char *cmdLine, char **cmdsVector,
+int unsetenvHandler(char **args, char *cmdLine, char **cmdsVector,
 	char *cmd, char *shell, int *jobNr, int *lastError)
 {
+	int argc, i;
 
 	(void) shell;
-	(void) args;
 	(void) cmdLine;
 	(void) cmdsVector;
 	(void) cmd;
 	(void) jobNr;
 
-	*lastError = 0;
+	errno = 0;
+	*lastError = errno;
+	/* verify args are ok */
+	i = 0;
+	while (args[i] != NULL)
+		i++;
+	argc = i;
 
+	if (argc >= 2)
+	{
+		/*  unset the variable */
+		_unsetenv(args[1]);
+		*lastError = errno;
+	}
+
+	/* now display the environment */
+	/* printEnv();   debug */
 
 	return (0);
 }
