@@ -15,28 +15,16 @@
 int varHandler(char **args, char *cmdLine, char **cmdsVector,
 	char *cmd, char *shell, int *jobNr, int *lastError)
 {
-	char *varptr; /* for printing env variables */
 
 	(void) shell;
+	(void) args;
 	(void) cmdLine;
 	(void) cmdsVector;
 	(void) cmd;
 	(void) jobNr;
+	(void) lastError;
 
-	if (!_strcmp(args[1], "$?"))
-	{
-		_printf("%d\n", *lastError);
-	}
-	else if (!_strcmp(args[1], "$$"))
-	{
-		_printf("%d\n", getpid());
-	}
-	else
-	{
-		varptr = _getenv(args[1] + 1); /* assume echo $XXXX ):  */
-		if (varptr)
-			_printf("%s\n", varptr);
-	}
+
 	return (0);
 }
 

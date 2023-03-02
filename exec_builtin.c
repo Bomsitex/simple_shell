@@ -14,11 +14,19 @@
 int execBuiltin(char **args, char *cmdLine, char **cmdsVector,
 	char *cmd, char *shell, int *jobNr, int *lastError)
 {
+	(void) shell;
+	(void) args;
+	(void) cmdLine;
+	(void) cmdsVector;
+	(void) cmd;
+	(void) lastError;
+
 	if (!_strcmp(args[0], "env"))  /* arg matches this function */
 	{
 		*lastError = 0;
 		envHandler(args, cmdLine, cmdsVector,
 		cmd, shell, jobNr, lastError);
+		/*printf("envHandler\n");*/
 		return (0);
 	}
 	else if (!_strcmp(args[0], "cd"))  /* arg matches this function */
@@ -26,30 +34,20 @@ int execBuiltin(char **args, char *cmdLine, char **cmdsVector,
 		*lastError = 0;
 		cdHandler(args, cmdLine, cmdsVector,
 		cmd, shell, jobNr, lastError);
+		/*printf("cdHandler\n");*/
 		return (0);
 	}
 	else if ((args[1] != NULL)
 		&& (!_strcmp(args[0], "echo"))
 		&& (args[1][0] == '$'))	/* arg matches this function */
 	{
+		*lastError = 0;
 		varHandler(args, cmdLine, cmdsVector,
 		cmd, shell, jobNr, lastError);
+		/*printf("$ var replacement Handler\n"); */
 		return (0);
 	}
-	else if (!_strcmp(args[0], "setenv"))  /* arg matches this function */
-	{
-		*lastError = 0;
-		setenvHandler(args, cmdLine, cmdsVector,
-		cmd, shell, jobNr, lastError);
-		return (0);
-	}
-	else if (!_strcmp(args[0], "unsetenv"))  /* arg matches this function */
-	{
-		*lastError = 0;
-		unsetenvHandler(args, cmdLine, cmdsVector,
-		cmd, shell, jobNr, lastError);
-		return (0);
-	}
+
 	return (1);
 }
 

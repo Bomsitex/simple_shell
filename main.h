@@ -25,8 +25,8 @@ void buffchar(int ch, char *buff);
 int _putchar(char c);
 size_t _strlen(const char *s);
 char *_strncat(char *dest, char *src, int n);
-char *_strcat(char *dest, const char *src);
-char *_strcpy(char *dest, const char *src);
+char *_strcat(char *dest, char *src);
+char *_strcpy(char *dest, char *src);
 char *_strchr(char *s, char c);
 int _strncmp(const char *s1, const char *s2, int n);
 int _strcmp(const char *s1, const char *s2);
@@ -38,9 +38,6 @@ ssize_t _getline(char **lineptr, size_t *n, int fd);
 char **parseLine(char *str, char *delim, int *jobNr);
 int getCmdPath(char **args, char *pathnamei, int *jobNr);
 char *_getenv(const char *name);
-int _setenv(const char *name, const char *value, int overwrite);
-int _unsetenv(const char *name);
-void freeEnv(char **environ);
 int execCmd(char **args, char *shell, int *jobNr, int *lastError);
 char *remCmnt(char *cmdLine);
 void shellErr(int code);
@@ -57,10 +54,7 @@ int envHandler(char **args, char *cmdLine, char **cmdsVector,
 	char *cmd, char *shell, int *jobNr, int *lastError);
 int varHandler(char **args, char *cmdLine, char **cmdsVector,
 	char *cmd, char *shell, int *jobNr, int *lastError);
-int setenvHandler(char **args, char *cmdLine, char **cmdsVector,
-	char *cmd, char *shell, int *jobNr, int *lastError);
-int unsetenvHandler(char **args, char *cmdLine, char **cmdsVector,
-	char *cmd, char *shell, int *jobNr, int *lastError);
+
 
 /*printf stuff */
 /* printf specific functions */

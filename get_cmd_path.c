@@ -17,10 +17,12 @@ int getCmdPath(char **args, char *pathname, int *jobNr)
 	int i = 0;
 
 	path = _strdup(_getenv("PATH"));  /* must free path later */
+	pathVector = parseLine(path, ":", jobNr); /* free pathVector later */
 	/* check if path cmd starts with / or . */
 	ch = args[0][0];
-	if (!path || ch == '/' || ch == '.')
+	if (ch == '/' || ch == '.')
 	{
+
 		_strcpy(pathname, args[0]);   /* use args[0] as pathname */
 	}
 	/* if given commandname contains a / which is not at the end: */
@@ -33,7 +35,6 @@ int getCmdPath(char **args, char *pathname, int *jobNr)
 	else /* do path search */
 	{
 		/* generate pathname */
-		pathVector = parseLine(path, ":", jobNr); /* free pathVector later */
 		while (pathVector[i])
 		{
 			_strcpy(pathname, pathVector[i]);
@@ -46,10 +47,10 @@ int getCmdPath(char **args, char *pathname, int *jobNr)
 			}
 			i++;
 		}
-
-		free(pathVector);
 	}
 	free(path);
-	/*free(pathVector);  */
+	free(pathVector);
+
 	return (stat(pathname, &fileStat));
 }
+
